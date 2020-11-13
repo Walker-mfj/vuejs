@@ -1,28 +1,35 @@
 <template>
   <div id="app">
-    <Header />
+    <bgrSun />
+    <headerPage />
     <sunPage />
+    <footerPage />
   </div>
 </template>
 
 <script>
+import bgrSun from './components/background.vue'
 import sunPage from './components/sun-page.vue'
-import Header from './components/header.vue'
+import headerPage from './components/header.vue'
+import footerPage from './components/footer.vue'
+
 export default {
   name: 'App',
   data(){
     return {
-      show: false
+    
     }
   },
   components:{
     sunPage,
-    Header
+    headerPage,
+    bgrSun,
+    footerPage
   }
 }
 </script>
 
-<style>
+<style scoped>
   *{
     margin: 0;
     padding: 0;
