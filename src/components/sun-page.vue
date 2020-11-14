@@ -28,7 +28,7 @@
               <sapn>200,296,796 <span class="undUni">USD</span></sapn>
             </div>
           </div>
-          <a href="#" class="getLP">
+          <a class="getLP">
             Get LP Token on JustSwap
             <span class="questionCircle">?</span>
           </a>
@@ -39,7 +39,7 @@
       <span :class="{active: isShow}" @click="clickShow">Active</span>|
       <span :class="{active: !isShow}" @click="clickShow">Ended</span>
     </div>
-    <div class="container active-link" v-show="isShow">
+    <div class="container active-link" v-if="isShow">
       <section class= 'sun'>
         <div>
           <div class="sun-header">
@@ -77,7 +77,7 @@
             </div>
           </div>
           <div class="bottomFix">
-            <a href="#" class="type-link">Get LP Token</a>
+            <a class="type-link">Get LP Token</a>
             <button class="create_btn">Select</button>
           </div>
         </div>
@@ -119,7 +119,7 @@
             </div>
           </div>
           <div class="bottomFix">
-            <a href="#" class="type-link">Get LP Token</a>
+            <a class="type-link">Get LP Token</a>
             <button class="create_btn">Select</button>
           </div>
         </div>
@@ -161,7 +161,7 @@
             </div>
           </div>
           <div class="bottomFix">
-            <a href="#" class="type-link">Get LP Token</a>
+            <a class="type-link">Get LP Token</a>
             <button class="create_btn">Select</button>
           </div>
         </div>
@@ -203,7 +203,7 @@
             </div>
           </div>
           <div class="bottomFix">
-            <a href="#" class="type-link">Get LP Token</a>
+            <a class="type-link">Get LP Token</a>
             <button class="create_btn">Select</button>
           </div>
         </div>
@@ -245,52 +245,369 @@
             </div>
           </div>
           <div class="bottomFix">
-            <a href="#" class="type-link">Get LP Token</a>
+            <a class="type-link">Get LP Token</a>
             <button class="create_btn">Select</button>
           </div>
         </div>
       </section>
     </div>
-    <div class="container ended-link" v-show="!isShow">
+    <div class="container ended-link" v-else>
       <section class= 'sun'>
+        <div class="over">Ended</div>
         <div>
           <div class="sun-header">
-            <img class="tokenLogo" src="../assets/tokenLogo1.png" alt="tokenLogo">
+            <img class="tokenLogo" src="../assets/tokenLogoEnded1.svg" alt="tokenLogo">
             <img class="sunLogo" src="../assets/sunLogo.png" alt="sunLogo">
             <div class="header-right">
-              <h1 class="title">SUN/TRX LP Pool</h1>
+              <h1 class="title">HT/TRX LP Pool</h1>
               <div class="hr-sub">
                 Stake SUN/TRX LP Earn <b>9x</b> SUN
               </div>
             </div>
           </div>
-          <div class="total">
-            <span class="t-num">Total: 54,462,041,155</span>
-            <span class="apy">APY: 37.70%</span>
+          <div class="total countdown">
+            2020.11.02 17:00:00 Ended
           </div>
           <div class="info">
             <div>
-              <p>Total staked</p>
+              <p>Total Supply</p>
               <p>
-                <span>1,742,8517</span>
+                <span>22,400</span>
                 <span>SUN</span>
-              </p>
-              <p>
-                <span>561,446,660</span>
-                <span>TRX</span>
               </p>
             </div>
             <div>
-              <p>Pool supply</p>
+              <p>My staked</p>
               <p>
-                <span>23,127</span>
+                <span>--</span>
+                <span>HT/TRX LP</span>
+              </p>
+            </div>
+            <div>
+              <p>Pending Claim</p>
+              <p>
+                <span>--</span>
                 <span>SUN</span>
               </p>
             </div>
           </div>
           <div class="bottomFix">
-            <a href="#" class="type-link">Get LP Token</a>
-            <button class="create_btn">Select</button>
+            <a class="type-link gray">Claim & Unstake</a>
+            <button class="create_btn">Continue mining for more profits</button>
+          </div>
+        </div>
+      </section>
+      <section class= 'sun'>
+        <div class="over">Ended</div>
+        <div>
+          <div class="sun-header">
+            <img class="tokenLogo" src="../assets/tokenLogoEnded2.png" alt="tokenLogo">
+            <img class="sunLogo" src="../assets/sunLogo.png" alt="sunLogo">
+            <div class="header-right">
+              <h1 class="title">HT/TRX LP Pool</h1>
+              <div class="hr-sub">
+                Stake SUN/TRX LP Earn <b>9x</b> SUN
+              </div>
+            </div>
+          </div>
+          <div class="total countdown">
+            2020.10.28 22:20:00 Ended
+          </div>
+          <div class="info">
+            <div>
+              <p>Total Supply</p>
+              <p>
+                <span>8,400</span>
+                <span>SUN</span>
+              </p>
+            </div>
+            <div>
+              <p>My staked</p>
+              <p>
+                <span>--</span>
+                <span>SUN/TRX LP</span>
+              </p>
+            </div>
+            <div>
+              <p>Pending Claim</p>
+              <p>
+                <span>--</span>
+                <span>SUN</span>
+              </p>
+            </div>
+          </div>
+          <div class="bottomFix">
+            <a class="type-link gray">Claim & Unstake</a>
+            <button class="create_btn">Continue mining for more profits</button>
+          </div>
+        </div>
+      </section>
+      <section class= 'sun'>
+        <div class="over">Ended</div>
+        <div>
+          <div class="sun-header">
+            <img class="tokenLogo" src="../assets/tokenLogoEnded3.png" alt="tokenLogo">
+            <img class="sunLogo" src="../assets/sunLogo.png" alt="sunLogo">
+            <div class="header-right">
+              <h1 class="title">HT/TRX LP Pool</h1>
+              <div class="hr-sub">
+                Stake SUN/TRX LP Earn <b>9x</b> SUN
+              </div>
+            </div>
+          </div>
+          <div class="total countdown">
+            2020.10.28 22:20:00 Ended
+          </div>
+          <div class="info">
+            <div>
+              <p>Total Supply</p>
+              <p>
+                <span>44,800</span>
+                <span>SUN</span>
+              </p>
+            </div>
+            <div>
+              <p>My staked</p>
+              <p>
+                <span>--</span>
+                <span>USDT/TRX LP</span>
+              </p>
+            </div>
+            <div>
+              <p>Pending Claim</p>
+              <p>
+                <span>--</span>
+                <span>SUN</span>
+              </p>
+            </div>
+          </div>
+          <div class="bottomFix">
+            <a class="type-link gray">Claim & Unstake</a>
+            <button class="create_btn">Continue mining for more profits</button>
+          </div>
+        </div>
+      </section>
+      <section class= 'sun'>
+        <div class="over">Ended</div>
+        <div>
+          <div class="sun-header">
+            <img class="tokenLogo" src="../assets/tokenLogoEnded4.png" alt="tokenLogo">
+            <img class="sunLogo" src="../assets/sunLogo.png" alt="sunLogo">
+            <div class="header-right">
+              <h1 class="title">HT/TRX LP Pool</h1>
+              <div class="hr-sub">
+                Stake SUN/TRX LP Earn <b>9x</b> SUN
+              </div>
+            </div>
+          </div>
+          <div class="total countdown">
+            2020.11.02 17:00:00 Ended
+          </div>
+          <div class="info">
+            <div>
+              <p>Total Supply</p>
+              <p>
+                <span>22,400</span>
+                <span>SUN</span>
+              </p>
+            </div>
+            <div>
+              <p>My staked</p>
+              <p>
+                <span>--</span>
+                <span>HT/TRX LP</span>
+              </p>
+            </div>
+            <div>
+              <p>Pending Claim</p>
+              <p>
+                <span>--</span>
+                <span>SUN</span>
+              </p>
+            </div>
+          </div>
+          <div class="bottomFix">
+            <a class="type-link gray">Claim & Unstake</a>
+            <button class="create_btn">Continue mining for more profits</button>
+          </div>
+        </div>
+      </section>
+      <section class= 'sun'>
+        <div class="over">Ended</div>
+        <div>
+          <div class="sun-header">
+            <img class="tokenLogo" src="../assets/tokenLogoEnded5.png" alt="tokenLogo">
+            <img class="sunLogo" src="../assets/sunLogo.png" alt="sunLogo">
+            <div class="header-right">
+              <h1 class="title">HT/TRX LP Pool</h1>
+              <div class="hr-sub">
+                Stake SUN/TRX LP Earn <b>9x</b> SUN
+              </div>
+            </div>
+          </div>
+          <div class="total countdown">
+            2020.10.28 22:20:00 Ended
+          </div>
+          <div class="info">
+            <div>
+              <p>Total Supply</p>
+              <p>
+                <span>16,800</span>
+                <span>SUN</span>
+              </p>
+            </div>
+            <div>
+              <p>My staked</p>
+              <p>
+                <span>--</span>
+                <span>USDJ/TRX LP</span>
+              </p>
+            </div>
+            <div>
+              <p>Pending Claim</p>
+              <p>
+                <span>--</span>
+                <span>SUN</span>
+              </p>
+            </div>
+          </div>
+          <div class="bottomFix">
+            <a class="type-link gray">Claim & Unstake</a>
+            <button class="create_btn">Continue mining for more profits</button>
+          </div>
+        </div>
+      </section>
+      <section class= 'sun'>
+        <div class="over">Ended</div>
+        <div>
+          <div class="sun-header">
+            <img class="tokenLogo" src="../assets/tokenLogoEnded6.png" alt="tokenLogo">
+            <img class="sunLogo" src="../assets/sunLogo.png" alt="sunLogo">
+            <div class="header-right">
+              <h1 class="title">HT/TRX LP Pool</h1>
+              <div class="hr-sub">
+                Stake SUN/TRX LP Earn <b>9x</b> SUN
+              </div>
+            </div>
+          </div>
+          <div class="total countdown">
+            2020.11.02 17:00:00 Ended
+          </div>
+          <div class="info">
+            <div>
+              <p>Total Supply</p>
+              <p>
+                <span>22,400</span>
+                <span>SUN</span>
+              </p>
+            </div>
+            <div>
+              <p>My staked</p>
+              <p>
+                <span>--</span>
+                <span>HT/TRX LP</span>
+              </p>
+            </div>
+            <div>
+              <p>Pending Claim</p>
+              <p>
+                <span>--</span>
+                <span>SUN</span>
+              </p>
+            </div>
+          </div>
+          <div class="bottomFix">
+            <a class="type-link gray">Claim & Unstake</a>
+            <button class="create_btn">Continue mining for more profits</button>
+          </div>
+        </div>
+      </section>
+      <section class= 'sun'>
+        <div class="over">Ended</div>
+        <div>
+          <div class="sun-header">
+            <img class="tokenLogo" src="../assets/tokenLogoEnded7.png" alt="tokenLogo">
+            <img class="sunLogo" src="../assets/sunLogo.png" alt="sunLogo">
+            <div class="header-right">
+              <h1 class="title">HT/TRX LP Pool</h1>
+              <div class="hr-sub">
+                Stake SUN/TRX LP Earn <b>9x</b> SUN
+              </div>
+            </div>
+          </div>
+          <div class="total countdown">
+            2020.11.02 17:00:00 Ended
+          </div>
+          <div class="info">
+            <div>
+              <p>Total Supply</p>
+              <p>
+                <span>22,400</span>
+                <span>SUN</span>
+              </p>
+            </div>
+            <div>
+              <p>My staked</p>
+              <p>
+                <span>--</span>
+                <span>HT/TRX LP</span>
+              </p>
+            </div>
+            <div>
+              <p>Pending Claim</p>
+              <p>
+                <span>--</span>
+                <span>SUN</span>
+              </p>
+            </div>
+          </div>
+          <div class="bottomFix">
+            <a class="type-link gray">Claim & Unstake</a>
+            <button class="create_btn">Continue mining for more profits</button>
+          </div>
+        </div>
+      </section>
+      <section class= 'sun'>
+        <div class="over">Ended</div>
+        <div>
+          <div class="sun-header">
+            <img class="tokenLogo" src="../assets/sunLogo.png" alt="tokenLogo">
+            <div class="header-right">
+              <h1 class="title">HT/TRX LP Pool</h1>
+              <div class="hr-sub">
+                Stake SUN/TRX LP Earn <b>9x</b> SUN
+              </div>
+            </div>
+          </div>
+          <div class="total countdown">
+            2020.11.02 17:00:00 Ended
+          </div>
+          <div class="info">
+            <div>
+              <p>Total Supply</p>
+              <p>
+                <span>22,400</span>
+                <span>SUN</span>
+              </p>
+            </div>
+            <div>
+              <p>My staked</p>
+              <p>
+                <span>--</span>
+                <span>HT/TRX LP</span>
+              </p>
+            </div>
+            <div>
+              <p>Pending Claim</p>
+              <p>
+                <span>--</span>
+                <span>SUN</span>
+              </p>
+            </div>
+          </div>
+          <div class="bottomFix">
+            <a class="type-link gray">Claim & Unstake</a>
+            <button class="create_btn">Continue mining for more profits</button>
           </div>
         </div>
       </section>
@@ -325,7 +642,6 @@ export default {
   }
   .sun-page{
     width: 100%;
-    /* background-color: #f7f5f5; */
   }
   .sun-container{
     width: 50%;
@@ -435,6 +751,7 @@ export default {
     border-radius: 5px;
     padding: 10px 14px;
     text-decoration: none;
+    cursor: pointer;
   }
   .sun-dasboard .sun-nav .getLP .questionCircle{
     display: inline-block;
@@ -452,7 +769,7 @@ export default {
   }
   .sun-page .nav-link span{
     cursor: pointer;
-    padding: 0 30px;
+    padding: 0 20px;
     font-size: 18px;
     color:rgba(0,0,0,.65);
   }
@@ -460,7 +777,6 @@ export default {
     color: #5915e1!important;
   }
   .sun-page .nav-link span.active{
-    padding: 0 17px;
     color: #5915e1;
   }
   .container{
@@ -469,6 +785,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin-top: 30px;
   }
   .sun{
     padding: 20px;
@@ -476,6 +793,25 @@ export default {
     background-color: #fff;
     border-radius: 15px;
     margin: 10px 20px 10px 0px;
+    position: relative;
+    overflow: hidden;
+    height: 470px;
+    position: relative;
+  }
+  .container .sun .over{
+    position: absolute;
+    font-size: 14px;
+    background-color: #999;
+    right: -25px;
+    top: 80px;
+    height: 33px;
+    line-height: 33px;
+    width: 150px;
+    transform-origin: right top;
+    transform: rotate(45deg);
+    /* transform: rotate(-315deg); */
+    text-align: center;
+    color: #fff;
   }
   .sun-header{
     display: flex;
@@ -508,7 +844,7 @@ export default {
   .sun .total{
     display: flex;
     justify-content: space-between;
-    margin: 30px 0px;
+    margin: 30px auto 0px;
     width: 100%;
   }
   .sun .total .t-num{
@@ -519,7 +855,14 @@ export default {
     font-size: 13px;
     color: #1ba27a;
   }
+  .sun .total.countdown{
+    color: #d90019;
+    font-size: 14px;
+    line-height: 16px;
+    justify-content: center;
+  }
   .sun .info{
+    margin: 10px auto 0;
     width: 100%;
     padding: 14px 20px;
     box-shadow: inset 0 -2px 8px 0 rgba(51,1,138,.08);
@@ -546,8 +889,9 @@ export default {
     line-height: 2;
   }
   .sun .bottomFix{
-    margin-top: 30px;
-    width: 100%;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    position: absolute;
   }
   .sun .bottomFix .type-link{
     color: #6726eb;
@@ -555,6 +899,11 @@ export default {
     display: block;
     text-decoration: none;
     text-align: center;
+    cursor: pointer;
+  }
+  .sun .bottomFix .type-link.gray{
+    color: #b79cef;
+    cursor: not-allowed;
   }
   .sun .bottomFix .create_btn{
     width: 100%;
@@ -575,7 +924,7 @@ export default {
       width: 60%;
     }
     .sun-page .container{
-      width: 85%;
+      width: 80%;
     }
   }
   @media screen and (max-width: 1200px){

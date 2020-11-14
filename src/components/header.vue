@@ -22,7 +22,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
 }
@@ -30,10 +29,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  .sunPage-header::before{
+    content: '';
+    width: 100%;
+    height: 400px;
+    background-image: url(../assets/bj.76ce099b.png);
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
   }
   .sunPage-header{
     width: 100%;

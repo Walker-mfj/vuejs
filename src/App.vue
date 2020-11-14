@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <bgrSun />
     <headerPage />
-    <sunPage />
+    <!-- <sunPage /> -->
+    <!-- <votePage /> -->
+    <faqsPage />
     <footerPage />
   </div>
 </template>
 
 <script>
-import bgrSun from './components/background.vue'
-import sunPage from './components/sun-page.vue'
 import headerPage from './components/header.vue'
+// import sunPage from './components/sun-page.vue'
+// import votePage from './components/votePage.vue'
+import faqsPage from './components/FAQsPage.vue'
 import footerPage from './components/footer.vue'
 
 export default {
@@ -21,9 +23,10 @@ export default {
     }
   },
   components:{
-    sunPage,
     headerPage,
-    bgrSun,
+    // sunPage,
+    // votePage,
+    faqsPage,
     footerPage
   }
 }
