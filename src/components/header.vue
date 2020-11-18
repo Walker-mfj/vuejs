@@ -5,9 +5,9 @@
         <img src="../assets/SUNLogo.178d4636.png" alt="">
       </div>
       <div class="header-menu">
-        <a href="#" class="menu-item active">SUN</a>
-        <a href="#" class="menu-item">Vote</a>
-        <a href="#" class="menu-item">FAQs</a>
+        <a href="#" class="menu-item" :class="{active:page.sun_page}" @click="show_sun">SUN</a>
+        <a href="#" class="menu-item" :class="{active:page.vote_page}" @click="show_vote">Vote</a>
+        <a href="#" class="menu-item" :class="{active:page.faqs_page}" @click="show_faqs">FAQs</a>
         <a href="#" class="menu-item">Learn</a>
       </div>
       <div class="header-right">
@@ -24,6 +24,26 @@
 </template>
 <script>
 export default {
+  props: {
+    page: Object
+  },
+  methods: {
+    show_sun: function(){
+      this.page.sun_page = true
+      this.page.vote_page = false
+      this.page.faqs_page = false
+    },
+    show_vote: function(){
+      this.page.sun_page = false
+      this.page.vote_page = true
+      this.page.faqs_page = false
+    },
+    show_faqs: function(){
+      this.page.sun_page = false
+      this.page.vote_page = false
+      this.page.faqs_page = true
+    }
+  }
 }
 </script>
 

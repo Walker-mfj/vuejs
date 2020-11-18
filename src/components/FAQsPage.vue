@@ -76,12 +76,49 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
     .help-container{
-        width: 90%;
+        width: 56.25%;
+        margin: auto;
         h2{
-            font-size 26px;
-            margin: 10px auto 20px;
+            font-size: 46px;
+            margin: 100px 0; 
+            color: #fff;
+            text-align: center;
+            font-weight: 500;
+        }
+        .faq-content{
+            padding: 20px 0 30px;
+            text-align: left;
+            background-color: #fff;
+            box-shadow: 0 20px 40px 0 hsla(0,0%,58%,.06);
+            border-radius: 15px;
+            .question{
+                padding: 20px 0;
+                margin:0 30px;
+                border-bottom: 1px solid #efefef;
+                h3{
+                    font-size: 18px;
+                    color: #1a1a1a;
+                    letter-spacing: .3px;
+                    margin-bottom: 6px;
+                    font-weight: 500;
+                }
+                p{
+                    font-size: 13px;
+                    color: #666;
+                    line-height: 22px;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1000px){
+        .help-container{
+            width: 90%;
+            h2{
+                margin: 10px auto 20px;
+                font-size: 26px;
+            }
         }
     }
 </style>
