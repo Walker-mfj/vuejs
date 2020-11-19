@@ -1,67 +1,72 @@
 <template>
-    <div class="vote-list-container">
-        <div class="title">Vote</div>
-        <div class="vote-list">
-            <div class="tablist">
-                <div class="ant-tabs-tab" :class="{active: isShow}" @click="Show">Active</div>
-                <div class="ant-tabs-tab" :class="{active: !isShow}" @click="Show">Closed</div>
-                <div class="ant-tab-ink-bar" :class="{active: !isShow}"></div>
-            </div>
-            <div class="ant-tabs-active" v-if="isShow">
-                <div class="center">
-                    <img src="../assets/empty.png" alt="Empty tab">
-                    <div>No proposal up for vote. Please check other voting instead.</div>
+    <div>
+        <div class="vote-list-container" v-show="show">
+            <div class="title">Vote</div>
+            <div class="vote-list">
+                <div class="tablist">
+                    <div class="ant-tabs-tab" :class="{active: isShow}" @click="Show">Active</div>
+                    <div class="ant-tabs-tab" :class="{active: !isShow}" @click="Show">Closed</div>
+                    <div class="ant-tab-ink-bar" :class="{active: !isShow}"></div>
+                </div>
+                <div class="ant-tabs-active" v-if="isShow">
+                    <div class="center">
+                        <img src="../assets/empty.png" alt="Empty tab">
+                        <div>No proposal up for vote. Please check other voting instead.</div>
+                    </div>
+                </div>
+                <div class="ant-tabs-closed" v-else>
+                    <a href="#/vote/detail?symbol=sun" @click="showVoteList">
+                        <div class="vote-list-card">
+                            <div class="l1">
+                                <div class="l1-l">Vote for Your Favorite Pool</div>
+                                <div class="l1-r">Ends at: Oct 18 2020 17:00:00</div>
+                            </div>
+                            <div class="l2">
+                                <div class="l2-l">Closed</div>
+                                <div class="l2-r">
+                                    <span class="author">
+                                        Author: 
+                                        <span class="text333">SUN Team</span>
+                                    </span>
+                                    <span class="pool-supply">
+                                        Total pool supply: 
+                                        <span class="text333">1,200 SUN</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#/vote/detail?symbol=sun1" @click="showVoteList">
+                        <div class="vote-list-card">
+                            <div class="l1">
+                                <div class="l1-l">Vote the featured token onto JustSwap’s token list</div>
+                                <div class="l1-r">Ends at: Nov 08 2020 11:00:00</div>
+                            </div>
+                            <div class="l2">
+                                <div class="l2-l">Closed</div>
+                                <div class="l2-r">
+                                    <span class="author">
+                                        Author: 
+                                        <span class="text333">SUN Team</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>    
                 </div>
             </div>
-            <div class="ant-tabs-closed" v-else>
-                <a href="">
-                    <div class="vote-list-card">
-                        <div class="l1">
-                            <div class="l1-l">Vote for Your Favorite Pool</div>
-                            <div class="l1-r">Ends at: Oct 18 2020 17:00:00</div>
-                        </div>
-                        <div class="l2">
-                            <div class="l2-l">Closed</div>
-                            <div class="l2-r">
-                                <span class="author">
-                                    Author: 
-                                    <span class="text333">SUN Team</span>
-                                </span>
-                                <span class="pool-supply">
-                                    Total pool supply: 
-                                    <span class="text333">1,200 SUN</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="vote-list-card">
-                        <div class="l1">
-                            <div class="l1-l">Vote the featured token onto JustSwap’s token list</div>
-                            <div class="l1-r">Ends at: Nov 08 2020 11:00:00</div>
-                        </div>
-                        <div class="l2">
-                            <div class="l2-l">Closed</div>
-                            <div class="l2-r">
-                                <span class="author">
-                                    Author: 
-                                    <span class="text333">SUN Team</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </a>    
-            </div>
         </div>
+        <voteList1 v-show="!show"/>
     </div>
 </template>
 
 <script>
+import voteList1 from './voteList1.vue'
 export default {
     data(){
         return{
-            isShow: true
+            isShow: true,
+            show: true
         }
     },
     methods: {
@@ -70,7 +75,13 @@ export default {
                 return
             }
             else this.isShow = !this.isShow
+        },
+        showVoteList: function(){
+            this.show= false
         }
+    },
+    components: {
+        voteList1
     }
 }
 </script>
