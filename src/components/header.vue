@@ -5,9 +5,9 @@
         <img src="../assets/SUNLogo.178d4636.png" alt="">
       </div>
       <div class="header-menu">
-        <a href="#" class="menu-item" :class="{active:page.sun_page}" @click="show_sun">SUN</a>
-        <a href="#" class="menu-item" :class="{active:page.vote_page}" @click="show_vote">Vote</a>
-        <a href="#" class="menu-item" :class="{active:page.faqs_page}" @click="show_faqs">FAQs</a>
+        <a href="#/sun" class="menu-item" :class="{active:page.sun_page}" @click="show_sun">SUN</a>
+        <a href="#/vote" class="menu-item" :class="{active:page.vote_page}" @click="show_vote">Vote</a>
+        <a href="#/faq" class="menu-item" :class="{active:page.faqs_page}" @click="show_faqs">FAQs</a>
         <a href="#" class="menu-item">Learn</a>
       </div>
       <div class="header-right">
