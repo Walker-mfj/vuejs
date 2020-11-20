@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="vote-list-container" v-show="show">
+        <div class="vote-list-container" v-show="(show1 == false || show2 == false) ? false :true">
             <div class="title">Vote</div>
             <div class="vote-list">
                 <div class="tablist">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="ant-tabs-closed" v-else>
-                    <a href="#/vote/detail?symbol=sun" @click="showVoteList">
+                    <a href="#/vote/detail?symbol=sun" @click="showVoteList1">
                         <div class="vote-list-card">
                             <div class="l1">
                                 <div class="l1-l">Vote for Your Favorite Pool</div>
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#/vote/detail?symbol=sun1" @click="showVoteList">
+                    <a href="#/vote/detail?symbol=sun1" @click="showVoteList2">
                         <div class="vote-list-card">
                             <div class="l1">
                                 <div class="l1-l">Vote the featured token onto JustSwap’s token list</div>
@@ -56,17 +56,20 @@
                 </div>
             </div>
         </div>
-        <voteList1 v-show="!show"/>
+        <voteList1 v-show="!show1"/>
+        <voteList2 v-show="!show2"/>
     </div>
 </template>
 
 <script>
 import voteList1 from './voteList1.vue'
+import voteList2 from './voteList2.vue'
 export default {
     data(){
         return{
             isShow: true,
-            show: true
+            show1: true,
+            show2: true
         }
     },
     methods: {
@@ -76,12 +79,16 @@ export default {
             }
             else this.isShow = !this.isShow
         },
-        showVoteList: function(){
-            this.show= false
+        showVoteList1: function(){
+            this.show1= false
+        },
+        showVoteList2: function(){
+            this.show2= false
         }
     },
     components: {
-        voteList1
+        voteList1,
+        voteList2,
     }
 }
 </script>
