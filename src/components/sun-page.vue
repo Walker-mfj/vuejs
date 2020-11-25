@@ -25,7 +25,7 @@
             </div>
             <div class="usd_amount">
               ≈ 
-              <sapn>200,296,796 <span class="undUni">USD</span></sapn>
+              <span>200,296,796 <span class="undUni">USD</span></span>
             </div>
           </div>
           <a class="getLP">

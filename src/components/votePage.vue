@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="ant-tabs-closed" v-else>
-                    <a href="#/vote/detail?symbol=sun" @click="showVoteList1">
+                    <router-link :to="{path: '/vote/detail',query: {symbol: 'sun'}}">
                         <div class="vote-list-card">
                             <div class="l1">
                                 <div class="l1-l">Vote for Your Favorite Pool</div>
@@ -35,8 +35,8 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
-                    <a href="#/vote/detail?symbol=sun1" @click="showVoteList2">
+                    </router-link>
+                    <router-link :to="{path: '/vote/detail1',query: {symbol: 'sun1'}}">
                         <div class="vote-list-card">
                             <div class="l1">
                                 <div class="l1-l">Vote the featured token onto JustSwap’s token list</div>
@@ -52,18 +52,14 @@
                                 </div>
                             </div>
                         </div>
-                    </a>    
+                    </router-link>    
                 </div>
             </div>
         </div>
-        <voteList1 v-show="!show1"/>
-        <voteList2 v-show="!show2"/>
     </div>
 </template>
 
 <script>
-import voteList1 from './voteList1.vue'
-import voteList2 from './voteList2.vue'
 export default {
     data(){
         return{
@@ -87,8 +83,6 @@ export default {
         }
     },
     components: {
-        voteList1,
-        voteList2,
     }
 }
 </script>

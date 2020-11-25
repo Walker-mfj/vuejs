@@ -5,13 +5,19 @@
         <img src="../assets/SUNLogo.178d4636.png" alt="">
       </div>
       <div class="header-menu">
-        <a href="#/sun" class="menu-item" :class="{active:page.sun_page}" @click="show_sun">SUN</a>
-        <a href="#/vote" class="menu-item" :class="{active:page.vote_page}" @click="show_vote">Vote</a>
-        <a href="#/faq" class="menu-item" :class="{active:page.faqs_page}" @click="show_faqs">FAQs</a>
-        <a href="#" class="menu-item">Learn</a>
+        <router-link to="/sun" class="menu-item" :class="{atvSun: activeSun}">SUN</router-link>
+        <router-link to="/vote" class="menu-item" @click.native="inactiveSun">Vote</router-link>
+        <router-link to="/faq" class="menu-item" @click.native="inactiveSun">FAQs</router-link>
+        <a>Learn</a>
       </div>
       <div class="header-right">
-        <div class="connect-wallet">Connect to Wallet</div>
+        <div class="connect-wallet" :class="{pointer: ((addressId!=='') ? true : false)}">
+          <span v-if="addressId===''">Connect to Wallet</span>
+          <span v-else>
+            <img src="../assets/Tronlink.svg" alt="">
+            {{ addressId }}
+          </span>
+        </div>
         <div class="pc">
           <select name="lg-content">
             <option value="English">English</option>
@@ -20,29 +26,30 @@
         </div>
       </div>
     </div>
+    <router-view/>
   </div>
 </template>
 <script>
 export default {
-  props: {
-    page: Object
+  data(){
+    return{
+      addressId : '',
+      activeSun: true
+    }
   },
   methods: {
-    show_sun: function(){
-      this.page.sun_page = true
-      this.page.vote_page = false
-      this.page.faqs_page = false
+    getAddressId: function(){
+      if(window.tronWeb && window.tronWeb.defaultAddress.base58){
+          this.addressId= window.tronWeb.defaultAddress.base58
+      }
+      else this.addressId= ''
     },
-    show_vote: function(){
-      this.page.sun_page = false
-      this.page.vote_page = true
-      this.page.faqs_page = false
-    },
-    show_faqs: function(){
-      this.page.sun_page = false
-      this.page.vote_page = false
-      this.page.faqs_page = true
+    inactiveSun: function(){
+      this.activeSun=false
     }
+  },
+  created(){
+    setInterval(this.getAddressId,1000)
   }
 }
 </script>
@@ -92,7 +99,10 @@ export default {
   .sunPage-header .header-container .header-menu a:active{
     background-color: #6726eb;
   }
-  .sunPage-header .header-container .header-menu a.active{
+  .sunPage-header .header-container .header-menu a.router-link-active{
+    background-color: #6726eb;
+  }
+  .sunPage-header .header-container .header-menu a.atvSun{
     background-color: #6726eb;
   }
   .sunPage-header .header-container .header-right{
@@ -106,11 +116,28 @@ export default {
     cursor: pointer;
   }
   .header-right .connect-wallet{
+    text-align: center;
     border-radius: 5px;
     font-size: 14px;
-    padding: 7px 30px;
+    padding: 7px 20px;
     cursor: pointer;
     background-color: #6726eb;
     margin-right: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 160px;
+  }
+  .header-right .connect-wallet.pointer{
+    background-color: #fff;
+    color: #333;
+  }
+  .header-right .connect-wallet img{
+    width: 17px;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: center;
+    margin-top: -5px;
+    transform: translateY(3px);
   }
 </style>
