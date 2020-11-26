@@ -1,5 +1,6 @@
 <template>
   <div class="sun-page">
+    <sunItem />
     <div class="sun-container">
       <div class="intro">
         <h1>Today's a good day to sow SUN</h1>
@@ -293,7 +294,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link gray">Claim & Unstake</a>
-            <button class="create_btn">Continue mining for more profits</button>
+            <button class="create_btn endedLink">Continue mining for more profits</button>
           </div>
         </div>
       </section>
@@ -338,7 +339,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link gray">Claim & Unstake</a>
-            <button class="create_btn">Continue mining for more profits</button>
+            <button class="create_btn endedLink">Continue mining for more profits</button>
           </div>
         </div>
       </section>
@@ -383,7 +384,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link gray">Claim & Unstake</a>
-            <button class="create_btn">Continue mining for more profits</button>
+            <button class="create_btn endedLink">Continue mining for more profits</button>
           </div>
         </div>
       </section>
@@ -428,7 +429,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link gray">Claim & Unstake</a>
-            <button class="create_btn">Continue mining for more profits</button>
+            <button class="create_btn endedLink">Continue mining for more profits</button>
           </div>
         </div>
       </section>
@@ -473,7 +474,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link gray">Claim & Unstake</a>
-            <button class="create_btn">Continue mining for more profits</button>
+            <button class="create_btn endedLink">Continue mining for more profits</button>
           </div>
         </div>
       </section>
@@ -518,7 +519,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link gray">Claim & Unstake</a>
-            <button class="create_btn">Continue mining for more profits</button>
+            <button class="create_btn endedLink">Continue mining for more profits</button>
           </div>
         </div>
       </section>
@@ -563,7 +564,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link gray">Claim & Unstake</a>
-            <button class="create_btn">Continue mining for more profits</button>
+            <button class="create_btn endedLink">Continue mining for more profits</button>
           </div>
         </div>
       </section>
@@ -607,7 +608,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link gray">Claim & Unstake</a>
-            <button class="create_btn">Continue mining for more profits</button>
+            <button class="create_btn endedLink">Continue mining for more profits</button>
           </div>
         </div>
       </section>
@@ -616,6 +617,7 @@
 </template>
 
 <script>
+import sunItem from './sunItem.vue'
 export default {
   data() { 
     return{
@@ -629,6 +631,9 @@ export default {
       }
       else this.isShow = !this.isShow
     }
+  },
+  components: {
+    sunItem
   }
 }
 </script>
@@ -908,16 +913,20 @@ export default {
   .sun .bottomFix .create_btn{
     width: 100%;
     display: block;
-    color: #b79cef;
+    color: #fff;
     font-size: 12px;
     border-radius: 10px;
     text-align: center;
-    background: #e2d9f6;
+    background: #6726eb;
     border: 0;
     height: 40px;
     margin: 13px 0;
-    cursor: not-allowed;
     outline: none;
+    cursor: pointer;
+  }
+  .sun .bottomFix .create_btn.endedLink{
+    color: #b79cef;
+    background: #e2d9f6;
   }
   @media screen and (max-width: 1600px){
     .sun-page .sun-container{

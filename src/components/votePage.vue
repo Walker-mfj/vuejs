@@ -4,8 +4,12 @@
             <div class="title">Vote</div>
             <div class="vote-list">
                 <div class="tablist">
-                    <div class="ant-tabs-tab" :class="{active: isShow}" @click="Show">Active</div>
-                    <div class="ant-tabs-tab" :class="{active: !isShow}" @click="Show">Closed</div>
+                    <div class="ant-tabs-tab" :class="{active: isShow}" @click="Show">
+                        <div role="tab" class="ant-tabs-tab-btn">Active</div>
+                    </div>
+                    <div class="ant-tabs-tab" :class="{active: !isShow}" @click="Show">
+                        <div role="tab" class="ant-tabs-tab-btn">Closed</div>
+                    </div>
                     <div class="ant-tab-ink-bar" :class="{active: !isShow}"></div>
                 </div>
                 <div class="ant-tabs-active" v-if="isShow">
@@ -64,8 +68,6 @@ export default {
     data(){
         return{
             isShow: true,
-            show1: true,
-            show2: true
         }
     },
     methods: {
@@ -75,20 +77,12 @@ export default {
             }
             else this.isShow = !this.isShow
         },
-        showVoteList1: function(){
-            this.show1= false
-        },
-        showVoteList2: function(){
-            this.show2= false
-        }
     },
     components: {
     }
 }
 </script>
-<style lang="stylus" scoped>
 
-</style>
 <style scoped lang="scss">
     $color-hover: #5915e1;
     .vote-list-container{
@@ -129,8 +123,8 @@ export default {
                     position: absolute;
                     bottom: -1px;
                     height: 2px;
-                    width: 38px;
                     left: 0;
+                    width: 38px;
                     background-color: $color-hover;
                     transition: .3s;
                     &.active{
