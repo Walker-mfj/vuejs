@@ -79,7 +79,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link">Get LP Token</a>
-            <button class="create_btn">Select</button>
+            <button class="create_btn" @click="showModalStake">Select</button>
           </div>
         </div>
       </section>
@@ -630,6 +630,12 @@ export default {
         return  
       }
       else this.isShow = !this.isShow
+    },
+    showModalStake: function(){
+      let antModalMask = document.querySelector('.ant-modal-sun .ant-modal-mask')
+      let antModalWrap = document.querySelector('.ant-modal-sun .ant-modal-wrap')
+      antModalMask.classList.remove("closeModalMask")
+      antModalWrap.classList.remove("closeModalWrap")
     }
   },
   components: {

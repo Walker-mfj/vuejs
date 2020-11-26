@@ -105,6 +105,12 @@ window.onclick = function(el) {
     antModalMask.classList.add("modalMaskClose")
     antModalWrap.classList.add("modalWrapClose")
   }
+  if(el.target.classList.contains("ant-modal-wrap")){
+    let antModalMask = document.querySelector('.ant-modal-sun .ant-modal-mask')
+    let antModalWrap = document.querySelector('.ant-modal-sun .ant-modal-wrap')
+    antModalMask.classList.add("closeModalMask")
+    antModalWrap.classList.add("closeModalWrap")
+  }
 }
 export default {
   data(){
@@ -256,8 +262,8 @@ export default {
       z-index: 1000;
       overflow: auto;
       transform: scale(1);
-      transition: .5s;
-      transform-origin: (85%) 70px;
+      transition: .35s;
+      transform-origin: (85%) 65px;
       &:before{
         background: black;
       }

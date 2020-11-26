@@ -1,10 +1,10 @@
 <template>
   <div class="ant-modal-sun">
-    <div class="ant-modal-mask"></div>
-    <div class="ant-modal-wrap">
+    <div class="ant-modal-mask closeModalMask"></div>
+    <div class="ant-modal-wrap closeModalWrap">
       <div class="ant-modal">
         <div class="ant-modal-content">
-          <button type="button" class="ant-modal-close">
+          <button type="button" class="ant-modal-close" @click="closeModalStake">
             <div class="ant-modal-close-x">
               <img src="../assets/antModalClose.png" alt="">
             </div>
@@ -16,8 +16,8 @@
           <div class="ant-modal-tabs" v-if="isShow">
             <div>
               <p>My Stake</p>
-              <div class="input">
-                <input type="text" placeholder="0">
+              <div class="input readToken">
+                <input type="text" placeholder="0" readonly>
               </div>
             </div>
             <div>
@@ -30,16 +30,16 @@
               </div>
               <p>Maximum Stake: <span>0</span> SUN</p>
             </div>
-            <button class="stake-btn">Stake</button>
+            <button class="stake-btn" @click="stakeToken">Stake</button>
           </div>
           <div class="ant-modal-tabs" v-else>
             <div>
               <p class="sub-text">
                 <span>Pending Claim</span>
-                <span>MAX</span>
+                <span>Claim</span>
               </p>
-              <div class="input">
-                <input type="text" placeholder="0">
+              <div class="input readToken">
+                <input type="text" placeholder="0" readonly>
               </div>
             </div>
             <div>
@@ -70,11 +70,32 @@ export default {
     methods: {
       activeTab: function(){
         this.isShow = !this.isShow
+      },
+      closeModalStake: function(){
+        let antModalMask = document.querySelector('.ant-modal-sun .ant-modal-mask')
+        let antModalWrap = document.querySelector('.ant-modal-sun .ant-modal-wrap')
+        antModalMask.classList.add("closeModalMask")
+        antModalWrap.classList.add("closeModalWrap")
+      },
+      stakeToken: async function(){
+        const trc20ContractAddress = "TZJe5r25dGBpQAnc1Yi62gDyj1qvduY5Ap";//contract address
+        try {
+            let contract = await window.tronWeb.contract().at(trc20ContractAddress);
+            //Use call to execute a pure or view smart contract method.
+            // These methods do not modify the blockchain, do not cost anything to execute and are also not broadcasted to the network.
+            await contract.stakeToken(
+              20
+            ).send({
+                feeLimit: 50000000
+            }).then(output => {console.log('- Output:', output, '\n');});
+        } 
+        catch(error) {
+          console.error("trigger smart contract error",error)
+        }
       }
-    }
+    },
 }
 </script>
-
 <style lang="scss" scoped>
   .ant-modal-sun{
     height: 100%;
@@ -89,7 +110,7 @@ export default {
       height: 100%;
       background-color: rgba(0,0,0,.45);
       transition:.35s;
-      &.modalMaskClose{
+      &.closeModalMask{
         opacity: 0;
         visibility: hidden;
       }
@@ -103,12 +124,12 @@ export default {
       z-index: 1000;
       overflow: auto;
       transform: scale(1);
-      transition: .5s;
-      transform-origin: (85%) 70px;
+      transition: .35s;
+      transform-origin: (50%) (60%);
       &:before{
         background: black;
       }
-      &.modalWrapClose{
+      &.closeModalWrap{
         transform: scale(0);
         visibility: hidden;
       }
@@ -197,6 +218,7 @@ export default {
                   padding: 4px 10px;
                   background-color: #6726eb;
                   border-radius: 20px;
+                  cursor: pointer;
                 }
               }
               .input{
@@ -205,13 +227,23 @@ export default {
                   width: 100%;
                   border-radius: 8px;
                   padding-left: 15px;
-                  background-color: rgb(233, 233, 233);
+                  background-color: #fff;
                   outline: none;
                   border: none;
                   margin-top: 10px;
                   margin-bottom: 10px;
                   &:focus{
                     border: 1px solid #6726eb;
+                  }
+                }
+                &.readToken{
+                  input{
+                    background-color: rgb(233, 233, 233);
+                    cursor: auto;
+                    &:focus{
+                      border: none;
+                      outline: none;
+                    }
                   }
                 }
               }
@@ -227,6 +259,7 @@ export default {
             background: #6726eb;
             cursor: pointer;
             color: #fff;
+            outline: none;
           }
         }
       }
