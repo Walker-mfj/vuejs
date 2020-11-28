@@ -1,5 +1,5 @@
 <template>
-  <div class="ant-modal-sun">
+  <div class="ant-modal-sun1">
     <div class="ant-modal-mask closeModalMask"></div>
     <div class="ant-modal-wrap closeModalWrap">
       <div class="ant-modal">
@@ -47,7 +47,6 @@
               <p>Maximum Stake TRX: <span>0</span> SUN</p>
             </div>
             <button class="stakeToken-btn" @click="stakeToken">Stake Token</button>
-            <button class="stakeTRX-btn" @click="stakeTRX">Stake TRX</button>
           </div>
           <div class="ant-modal-tabs" v-else>
             <div>
@@ -96,85 +95,11 @@ export default {
         }
         else this.isShow = !this.isShow
       },
-      closeModalStake: function(){
-        let antModalMask = document.querySelector('.ant-modal-sun .ant-modal-mask')
-        let antModalWrap = document.querySelector('.ant-modal-sun .ant-modal-wrap')
-        antModalMask.classList.add("closeModalMask")
-        antModalWrap.classList.add("closeModalWrap")
-      },
-      stakeToken: async function() {
-        if(this.amountToken === 0){
-          alert("Invalid value amount token")
-        }
-        else{
-          const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb";
-          let amountStake = parseInt(document.getElementById('amountStakeToken').value);
-          try {
-              let contract = await window.tronWeb.contract().at(trc20ContractAddress);
-              await contract.stakeToken(
-                  amountStake
-              ).send({
-                  feeLimit: 5000000
-              }).then(output => output);
-          } catch(error) {
-              console.error("trigger smart contract error",error)
-          }
-        }
-      },
-      stakeTRX: async function() {
-        if(this.amountTRX === 0){
-          alert("Invalid value amount token")
-          return
-        }
-        else{
-          const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb"
-          let amountStake = parseInt(document.getElementById('amountStakeTRX').value)
-          try {
-            let contract = await window.tronWeb.contract().at(trc20ContractAddress);
-            await contract.methods.stakeTRX().send({
-              callValue: amountStake,
-              feeLimit: 5000000
-            }).then(output => output)
-          } catch(error) {
-            console.error("trigger smart contract error",error)
-          }
-        }
-      },
-      getBalanceOfStake: async function() {
-        const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb";
-        try {
-          let contract = await window.tronWeb.contract().at(trc20ContractAddress);
-          var result = await contract.methods.balanceOfStake("TVu3H7drteoaEDDpfBGyh3ZBtbUPhzbA96").call()
-          this.balanceOfStake = parseInt(result._hex) / Math.pow(10,6)
-        } catch(error) {
-          console.error("trigger smart contract error",error)
-        }
-      },
-      getMAXToken: async function() {
-        const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb"
-        try {
-            let contract = await window.tronWeb.contract().at(trc20ContractAddress);
-            let result = await contract.methods.balanceOf("TVu3H7drteoaEDDpfBGyh3ZBtbUPhzbA96").call()
-            this.amountToken = parseInt(result.balance._hex) / Math.pow(10,6)
-        } catch(error) {
-            console.error("trigger smart contract error",error)
-        }
-      },
-      getMAXTRX: async function() {
-        try {
-            if(window.tronWeb && window.tronWeb.defaultAddress.base58){
-              window.tronWeb.trx.getBalance('TVu3H7drteoaEDDpfBGyh3ZBtbUPhzbA96') 
-              .then(result => this.amountTRX = result / Math.pow(10,6))
-            }
-        } catch(error) {
-            console.error("trigger smart contract error",error)
-        }
-      },
     }
 }
 </script>
 <style lang="scss" scoped>
-  .ant-modal-sun{
+  .ant-modal-sun1{
     height: 100%;
     .ant-modal-mask{
       position: fixed;
@@ -338,18 +263,6 @@ export default {
             width: 100%;
             height: 40px;
             margin: 70px 0 10px 0;
-            border-radius: 10px;
-            border: 0;
-            background: #6726eb;
-            cursor: pointer;
-            color: #fff;
-            outline: none;
-          }
-          .stakeTRX-btn{
-            display: block;
-            width: 100%;
-            height: 40px;
-            margin: 10px 0 10px 0;
             border-radius: 10px;
             border: 0;
             background: #6726eb;

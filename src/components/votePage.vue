@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="vote-list-container" v-show="(show1 == false || show2 == false) ? false :true">
+        <div class="vote-list-container">
             <div class="title">Vote</div>
             <div class="vote-list">
                 <div class="tablist">

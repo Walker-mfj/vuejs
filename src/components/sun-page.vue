@@ -1,6 +1,7 @@
 <template>
   <div class="sun-page">
     <sunItem />
+    <sunItem1 />
     <div class="sun-container">
       <div class="intro">
         <h1>Today's a good day to sow SUN</h1>
@@ -79,7 +80,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link">Get LP Token</a>
-            <button class="create_btn" @click="showModalStake">Select</button>
+            <button class="create_btn" @click="showModalStake">Stake Token</button>
           </div>
         </div>
       </section>
@@ -121,7 +122,7 @@
           </div>
           <div class="bottomFix">
             <a class="type-link">Get LP Token</a>
-            <button class="create_btn">Select</button>
+            <button class="create_btn" @click="showModalStake1">Stake Other Token</button>
           </div>
         </div>
       </section>
@@ -618,6 +619,7 @@
 
 <script>
 import sunItem from './sunItem.vue'
+import sunItem1 from './sunItem1.vue'
 export default {
   data() { 
     return{
@@ -636,10 +638,17 @@ export default {
       let antModalWrap = document.querySelector('.ant-modal-sun .ant-modal-wrap')
       antModalMask.classList.remove("closeModalMask")
       antModalWrap.classList.remove("closeModalWrap")
+    },
+    showModalStake1: function(){
+      let antModalMask = document.querySelector('.ant-modal-sun1 .ant-modal-mask')
+      let antModalWrap = document.querySelector('.ant-modal-sun1 .ant-modal-wrap')
+      antModalMask.classList.remove("closeModalMask")
+      antModalWrap.classList.remove("closeModalWrap")
     }
   },
   components: {
-    sunItem
+    sunItem,
+    sunItem1
   }
 }
 </script>
