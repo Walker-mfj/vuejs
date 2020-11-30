@@ -94,7 +94,7 @@
             .question{
                 padding: 20px 0;
                 margin:0 30px;
-                border-bottom: 1px solid #efefef;
+                border-bottom: 1px solid #f0f0f0;
                 h3{
                     font-size: 18px;
                     color: #1a1a1a;
@@ -106,6 +106,9 @@
                     font-size: 13px;
                     color: #666;
                     line-height: 22px;
+                }
+                &:last-child{
+                    border: none;
                 }
             }
         }

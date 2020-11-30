@@ -19,7 +19,7 @@
           </span>
         </div>
         <div class="pc">
-          <select name="lg-content">
+          <select class="lg-content">
             <option value="English">English</option>
             <option value="Vietnamese">Vietnamese</option>
           </select>
@@ -108,6 +108,12 @@ window.onclick = function(el) {
   if(el.target.classList.contains("ant-modal-wrap")){
     let antModalMask = document.querySelector('.ant-modal-sun .ant-modal-mask')
     let antModalWrap = document.querySelector('.ant-modal-sun .ant-modal-wrap')
+    antModalMask.classList.add("closeModalMask")
+    antModalWrap.classList.add("closeModalWrap")
+  }
+  if(el.target.classList.contains("ant-modal-wrap")){
+    let antModalMask = document.querySelector('.ant-modal-sun1 .ant-modal-mask')
+    let antModalWrap = document.querySelector('.ant-modal-sun1 .ant-modal-wrap')
     antModalMask.classList.add("closeModalMask")
     antModalWrap.classList.add("closeModalWrap")
   }
@@ -205,8 +211,12 @@ export default {
     align-items: center;
     justify-content: flex-end;
   }
-  .header-right .lg-content option{
+  .header-right .lg-content {
     cursor: pointer;
+    width: 90px;
+    height: 30px;
+    border-radius: 5px;
+    padding-left: 5px;
   }
   .header-right .connect-wallet{
     text-align: center;

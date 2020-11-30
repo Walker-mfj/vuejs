@@ -95,6 +95,12 @@ export default {
         }
         else this.isShow = !this.isShow
       },
+      closeModalStake: function(){
+        let antModalMask = document.querySelector('.ant-modal-sun1 .ant-modal-mask')
+        let antModalWrap = document.querySelector('.ant-modal-sun1 .ant-modal-wrap')
+        antModalMask.classList.add("closeModalMask")
+        antModalWrap.classList.add("closeModalWrap")
+      },
     }
 }
 </script>

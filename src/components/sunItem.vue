@@ -108,14 +108,14 @@ export default {
         }
         else{
           const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb";
-          let amountStake = parseInt(document.getElementById('amountStakeToken').value);
+          let amountStake = parseInt(document.getElementById('amountStakeToken').value) * Math.pow(10,6)
           try {
-              let contract = await window.tronWeb.contract().at(trc20ContractAddress);
+              let contract = await window.tronWeb.contract().at(trc20ContractAddress)
               await contract.stakeToken(
                   amountStake
               ).send({
                   feeLimit: 5000000
-              }).then(output => output);
+              }).then(output => output)
           } catch(error) {
               console.error("trigger smart contract error",error)
           }
@@ -128,7 +128,7 @@ export default {
         }
         else{
           const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb"
-          let amountStake = parseInt(document.getElementById('amountStakeTRX').value)
+          let amountStake = parseInt(document.getElementById('amountStakeTRX').value) * Math.pow(10,6)
           try {
             let contract = await window.tronWeb.contract().at(trc20ContractAddress);
             await contract.methods.stakeTRX().send({
@@ -145,7 +145,7 @@ export default {
         try {
           let contract = await window.tronWeb.contract().at(trc20ContractAddress);
           var result = await contract.methods.balanceOfStake("TVu3H7drteoaEDDpfBGyh3ZBtbUPhzbA96").call()
-          this.balanceOfStake = parseInt(result._hex) / Math.pow(10,6)
+          this.balanceOfStake = (parseInt(result._hex) / Math.pow(10,6))
         } catch(error) {
           console.error("trigger smart contract error",error)
         }
