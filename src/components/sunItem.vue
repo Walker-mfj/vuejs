@@ -11,7 +11,7 @@
           </button>
           <div class="ant-modal-header">
             <div class="ant-tabs-tab" :class="{activeTab: isShow}" @click="activeTab">Stake</div>
-            <div class="ant-tabs-tab" :class="{activeTab: !isShow}"  @click="activeTab">Claim</div>
+            <div class="ant-tabs-tab claim" :class="{activeTab: !isShow}"  @click="activeTab">Claim</div>
           </div>
           <div class="ant-modal-tabs" v-if="isShow">
             <div>
@@ -26,14 +26,14 @@
             </div>
             <div>
               <p class="sub-text">
-                <span>Stake Token</span>
+                <span>Stake AC</span>
                 <span @click="getMAXToken">MAX</span>
               </p>
               <div class="input">
                 <input type="text" placeholder="0" v-model="amountToken" id="amountStakeToken">
                  <span>AC</span>
               </div>
-              <p>Maximum Stake Token: <span>0</span> SUN</p>
+              <p>Maximum Stake Token: <span>0</span> AC</p>
             </div>
             <div>
               <p class="sub-text">
@@ -53,25 +53,25 @@
             <div>
               <p class="sub-text">
                 <span>Pending Claim</span>
-                <span>Claim</span>
+                <span @click="withDraw">Claim</span>
               </p>
               <div class="input readToken">
-                <input type="text" placeholder="0" readonly>
+                <input type="text" placeholder="0" v-model="amountWithDraw" readonly>
                 <span>AC</span>
               </div>
             </div>
             <div>
               <p  class="sub-text">
                 <span>Staked</span>
-                <span>MAX</span>
+                <span @click="getStaked">MAX</span>
               </p>
               <div class="input">
-                <input type="text" placeholder="0">
+                <input type="text" placeholder="0" v-model="amountUnStaking" id="amountUnStaking">
                 <span>AC</span>
               </div>
               <p>Maximum Amount: <span>0</span> SUN</p>
             </div>
-            <button class="stakeToken-btn">Claim & Unstake</button>
+            <button class="stakeToken-btn" @click="unStaking">Claim & Unstake</button>
           </div>
         </div>
       </div>
@@ -83,18 +83,27 @@
 export default {
     data(){
       return{
+        addressToken: "TCf7V3mitjRyyKQnvpixWZk8k3dRYbKW37",
+        addressTRX: "TVu3H7drteoaEDDpfBGyh3ZBtbUPhzbA96",
         balanceOfStake : 0,
         isShow: true,
         amountToken: 0,
-        amountTRX: 0
+        amountTRX: 0,
+        amountWithDraw: 0,
+        amountUnStaking: 0
       }
     },
     methods: {
-      activeTab: function(el){
+      activeTab(el){
         if(el.target.classList.contains('activeTab')){
           return
         }
-        else this.isShow = !this.isShow
+        else{ 
+          this.isShow = !this.isShow
+          if(el.target.classList.contains('claim')){
+            this.getWithDraw()
+          }
+        }
       },
       closeModalStake: function(){
         let antModalMask = document.querySelector('.ant-modal-sun .ant-modal-mask')
@@ -107,17 +116,17 @@ export default {
           alert("Invalid value amount token")
         }
         else{
-          const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb";
-          let amountStake = parseInt(document.getElementById('amountStakeToken').value) * Math.pow(10,6)
-          try {
-              let contract = await window.tronWeb.contract().at(trc20ContractAddress)
-              await contract.stakeToken(
-                  amountStake
-              ).send({
-                  feeLimit: 5000000
-              }).then(output => output)
+          const trc20ContractAddress = this.addressToken;
+          let amountStake = parseFloat(document.getElementById('amountStakeToken').value) * Math.pow(10,6)
+          try { 
+            let contract = await window.tronWeb.contract().at(trc20ContractAddress)
+            await contract.stakeToken(
+                amountStake
+            ).send({
+                feeLimit: 50000000
+            }).then(output => output)
           } catch(error) {
-              console.error("trigger smart contract error",error)
+            console.error("trigger smart contract error",error)
           }
         }
       },
@@ -127,13 +136,13 @@ export default {
           return
         }
         else{
-          const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb"
-          let amountStake = parseInt(document.getElementById('amountStakeTRX').value) * Math.pow(10,6)
+          const trc20ContractAddress = this.addressToken
+          let amountStake = parseFloat(document.getElementById('amountStakeTRX').value) * Math.pow(10,6)
           try {
             let contract = await window.tronWeb.contract().at(trc20ContractAddress);
             await contract.methods.stakeTRX().send({
               callValue: amountStake,
-              feeLimit: 5000000
+              feeLimit: 50000000
             }).then(output => output)
           } catch(error) {
             console.error("trigger smart contract error",error)
@@ -141,35 +150,75 @@ export default {
         }
       },
       getBalanceOfStake: async function() {
-        const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb";
+        const trc20ContractAddress = this.addressToken;
         try {
           let contract = await window.tronWeb.contract().at(trc20ContractAddress);
-          var result = await contract.methods.balanceOfStake("TVu3H7drteoaEDDpfBGyh3ZBtbUPhzbA96").call()
+          var result = await contract.methods.balanceOfStake(this.addressTRX).call()
           this.balanceOfStake = (parseInt(result._hex) / Math.pow(10,6))
         } catch(error) {
           console.error("trigger smart contract error",error)
         }
       },
       getMAXToken: async function() {
-        const trc20ContractAddress = "TVaDcZBrGozAsCWeDK4R2eG9mL3jn4iUFb"
+        const trc20ContractAddress = this.addressToken
         try {
-            let contract = await window.tronWeb.contract().at(trc20ContractAddress);
-            let result = await contract.methods.balanceOf("TVu3H7drteoaEDDpfBGyh3ZBtbUPhzbA96").call()
-            this.amountToken = parseInt(result.balance._hex) / Math.pow(10,6)
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress);
+          let result = await contract.methods.balanceOf(this.addressTRX).call()
+          this.amountToken = parseInt(result.balance._hex) / Math.pow(10,6)
         } catch(error) {
             console.error("trigger smart contract error",error)
         }
       },
       getMAXTRX: async function() {
         try {
-            if(window.tronWeb && window.tronWeb.defaultAddress.base58){
-              window.tronWeb.trx.getBalance('TVu3H7drteoaEDDpfBGyh3ZBtbUPhzbA96') 
-              .then(result => this.amountTRX = result / Math.pow(10,6))
-            }
+          if(window.tronWeb && window.tronWeb.defaultAddress.base58){
+            window.tronWeb.trx.getBalance(this.addressTRX) 
+            .then(result => this.amountTRX = result / Math.pow(10,6))
+          }
         } catch(error) {
             console.error("trigger smart contract error",error)
         }
       },
+      getWithDraw: async function(){
+        const trc20ContractAddress = this.addressToken;
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress);
+          var result = await contract.methods.getWithDraw().call()
+          this.amountWithDraw = parseInt(result._hex) / Math.pow(10,6)
+        } catch(error) {
+          console.error("trigger smart contract error",error)
+        }
+      },
+      withDraw: async function(){
+        const trc20ContractAddress = this.addressToken;
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress);
+          await contract.methods.withDraw().send({feeLimit: 5000000})
+        } catch(error) {
+          console.error("trigger smart contract error",error)
+        }
+      },
+      unStaking: async function(){
+        const trc20ContractAddress = this.addressToken
+        let amountUnStake = parseFloat(document.getElementById('amountUnStaking').value) * Math.pow(10,6)
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress)
+          await contract.methods.unStaking(amountUnStake).send({feeLimit: 5000000})
+        } catch(error) {
+          console.error("trigger smart contract error",error)
+        }
+      },
+      getStaked: async function(){
+        const trc20ContractAddress = this.addressToken
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress)
+          var result = await contract.methods.balanceOfStake(this.addressTRX).call()
+          this.amountUnStaking = parseInt(result._hex) / Math.pow(10,6)
+        } catch(error) {
+          console.error("trigger smart contract error",error)
+        }
+      },
+
     }
 }
 </script>

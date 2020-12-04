@@ -11,7 +11,7 @@
           </button>
           <div class="ant-modal-header">
             <div class="ant-tabs-tab" :class="{activeTab: isShow}" @click="activeTab">Stake</div>
-            <div class="ant-tabs-tab" :class="{activeTab: !isShow}"  @click="activeTab">Claim</div>
+            <div class="ant-tabs-tab claimWithDraw" :class="{activeTab: !isShow}"  @click="activeTab">Claim</div>
           </div>
           <div class="ant-modal-tabs" v-if="isShow">
             <div>
@@ -21,30 +21,19 @@
               </p>
               <div class="input readToken">
                 <input type="text" v-model="balanceOfStake" placeholder="0" readonly>
-                <span>AC</span>
+                <span>USDT</span>
               </div>
             </div>
             <div>
               <p class="sub-text">
-                <span>Stake Token</span>
+                <span>Stake USDT</span>
                 <span @click="getMAXToken">MAX</span>
               </p>
               <div class="input">
-                <input type="text" placeholder="0" v-model="amountToken" id="amountStakeToken">
-                 <span>AC</span>
+                <input type="text" placeholder="0" v-model="amountToken" id="amountStakeUSDT">
+                 <span>USDT</span>
               </div>
               <p>Maximum Stake Token: <span>0</span> SUN</p>
-            </div>
-            <div>
-              <p class="sub-text">
-                <span>Stake TRX</span>
-                <span @click="getMAXTRX">MAX</span>
-              </p>
-              <div class="input">
-                <input type="text" placeholder="0" v-model="amountTRX" id="amountStakeTRX">
-                <span>TRX</span>
-              </div>
-              <p>Maximum Stake TRX: <span>0</span> SUN</p>
             </div>
             <button class="stakeToken-btn" @click="stakeToken">Stake Token</button>
           </div>
@@ -55,22 +44,25 @@
                 <span>Claim</span>
               </p>
               <div class="input readToken">
-                <input type="text" placeholder="0" readonly>
-                <span>AC</span>
+                <input type="text" placeholder="0" v-model="amountWithDraw" readonly>
+                <span>USDT</span>
               </div>
             </div>
-            <div>
-              <p  class="sub-text">
-                <span>Staked</span>
-                <span>MAX</span>
-              </p>
-              <div class="input">
-                <input type="text" placeholder="0">
-                <span>AC</span>
-              </div>
-              <p>Maximum Amount: <span>0</span> SUN</p>
-            </div>
-            <button class="stakeToken-btn">Claim & Unstake</button>
+            <ul>
+              <li v-for="balanceOfStake in balanceOfEachStake" v-bind:key="balanceOfStake.id">
+                <p class="sub-text">
+                  <span>Amount Stake: {{ balanceOfStake.amount }} USDT</span>
+                  <span>MAX</span>
+                </p>
+                <div class="unStake-section">
+                  <div>
+                    <input type="text" placeholder="0">
+                    <span>USDT</span>
+                  </div>
+                  <button class="unStake-btn">Unstake</button>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -82,10 +74,16 @@
 export default {
     data(){
       return{
+        addressUSDT: 'TUtvDtkoRGcqvVJcYGntox3KT2xy2QaRM5',
+        addressBank: 'TGKpYkw4D4TNK3YyXx1z9FWjp9kho7dv6n',
+        addressTRX: 'TVu3H7drteoaEDDpfBGyh3ZBtbUPhzbA96',
         balanceOfStake : 0,
         isShow: true,
         amountToken: 0,
-        amountTRX: 0
+        amountTRX: 0,
+        amountWithDraw: 0,
+        countNumOfStake: 0,
+        balanceOfEachStake: []
       }
     },
     methods: {
@@ -94,6 +92,10 @@ export default {
           return
         }
         else this.isShow = !this.isShow
+        if(el.target.classList.contains('claimWithDraw')){
+            this.getWithDraw()
+            this.getbalanceOfEachStake()
+          }
       },
       closeModalStake: function(){
         let antModalMask = document.querySelector('.ant-modal-sun1 .ant-modal-mask')
@@ -101,6 +103,81 @@ export default {
         antModalMask.classList.add("closeModalMask")
         antModalWrap.classList.add("closeModalWrap")
       },
+      stakeToken: async function() {
+        if(this.amountToken === 0)  {
+          alert("Invalid value amount token")
+        }
+        else{
+          const trc20ContractAddress = this.addressBank;
+          let amountStake = parseInt(document.getElementById('amountStakeUSDT').value) * Math.pow(10,2)
+          try {
+            let contract = await window.tronWeb.contract().at(trc20ContractAddress)
+            await contract.stake(this.addressUSDT,amountStake).send({
+                feeLimit: 50000000
+            }).then(output => output)
+          } catch(error) {
+            console.error("trigger smart contract error",error)
+          }
+        }
+      },
+      getBalanceOfStake: async function() {
+        const trc20ContractAddress = this.addressBank;
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress);
+          var result = await contract.methods.balanceOfStake(this.addressUSDT).call()
+          this.balanceOfStake = parseInt(result._hex) / Math.pow(10,2)
+        } catch(error) {
+          console.error("trigger smart contract error",error)
+        }
+      },
+      getMAXToken: async function() {
+        const trc20ContractAddress = this.addressUSDT
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress);
+          let result = await contract.methods.balanceOf(this.addressTRX).call()
+          this.amountToken = parseInt(result.balance._hex) / Math.pow(10,2)
+        } catch(error) {
+            console.error("trigger smart contract error",error)
+        }
+      },
+      getWithDraw: async function(){
+        const trc20ContractAddress = this.addressBank;
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress);
+          var result = await contract.methods.interestBalance(this.addressUSDT).call()
+          this.amountWithDraw = parseInt(result._hex) / Math.pow(10,2)
+        } catch(error) {
+          console.error("trigger smart contract error",error)
+        }
+      },
+      getNumOfStake: async function(){
+        const trc20ContractAddress = this.addressBank
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress)
+          let result = await contract.methods.countNumOfStake(this.addressUSDT).call()
+          return parseInt(result._hex)
+        } catch(error) {
+          console.error("trigger smart contract error",error)
+        }
+      },
+      getbalanceOfEachStake: async function(){
+        this.balanceOfEachStake = []
+        const trc20ContractAddress = this.addressBank
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress)
+          let countNumOfStake = await this.getNumOfStake()
+          for(let i = 0; i < countNumOfStake; i++){
+            let result = await contract.methods.balanceOfEachStake(this.addressUSDT,i).call()
+            let newItem = {
+              id: i+1,
+              amount: parseInt(result._hex)
+            }
+            this.balanceOfEachStake.push(newItem)
+          }
+        } catch(error) {
+          console.error("trigger smart contract error",error)
+        }
+      }
     }
 }
 </script>
@@ -260,6 +337,65 @@ export default {
                   position: absolute;
                   top: 25px;
                   right: 10px;
+                }
+              }
+            }
+            ul{
+              li{
+                list-style-type: none;
+                p.sub-text{
+                  margin-top: 10px;
+                  font-size: 13px;
+                  color: #333;
+                  display: flex;
+                  justify-content: space-between;
+                  span:last-child{
+                    color: #fff;
+                    font-size: 8px;
+                    font-weight: 500;
+                    padding: 4px 10px;
+                    background-color: #6726eb;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    margin-right: 70px;
+                  }
+                }
+                div.unStake-section{
+                  display: flex;
+                  div{
+                    position: relative;
+                    width: 80%;
+                    input{
+                      height: 30px;
+                      width: 100%;
+                      border-radius: 8px;
+                      padding-left: 15px;
+                      background-color: #fff;
+                      outline: none;
+                      border: 1px solid rgb(224, 224, 224);
+                      margin-top: 10px;
+                      margin-bottom: 10px;
+                      &:focus{
+                        border: 1px solid #6726eb;
+                      }
+                    }
+                    span{
+                      position: absolute;
+                      right: 5px;
+                      top: 15px;
+                      font-size: 13px;
+                    }
+                  }
+                  button{
+                    margin-left: 10px;
+                    height: 20px;
+                    margin-top: 15px;
+                    font-size: 12px;
+                    padding: 2px 5px;
+                    border-radius: 5px;
+                    color: #fff;
+                    background: #6726eb;
+                  }
                 }
               }
             }
