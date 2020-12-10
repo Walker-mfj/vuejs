@@ -184,7 +184,9 @@ export default {
               id: i+1,
               amount: parseInt(result._hex)
             }
-            this.balanceOfEachStake.push(newItem)
+            if(newItem.amount !== 0){
+              this.balanceOfEachStake.push(newItem)
+            }
           }
         } catch(error) {
           console.error("trigger smart contract error",error)
