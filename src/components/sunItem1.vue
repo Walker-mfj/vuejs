@@ -56,10 +56,10 @@
                 </p>
                 <div class="unStake-section">
                   <div>
-                    <input type="text" placeholder="0">
+                    <input type="text" placeholder="0" :data-value=balanceOfStake.id>
                     <span>USDT</span>
                   </div>
-                  <button class="unStake-btn">Unstake</button>
+                  <button class="unStake-btn" @click="Unstaking(balanceOfStake.id)">Unstake</button>
                 </div>
               </li>
             </ul>
@@ -119,6 +119,18 @@ export default {
             console.error("trigger smart contract error",error)
           }
         }
+      }, 
+      Unstaking: async function(id){
+        const trc20ContractAddress = this.addressBank;
+        let amountUnstake = parseFloat(document.querySelector("[data-value='" + id + "']").value) * Math.pow(10,2)
+        try {
+          let contract = await window.tronWeb.contract().at(trc20ContractAddress)
+          await contract.unstaking(this.addressUSDT,amountUnstake,id-1).send({
+              feeLimit: 50000000
+          }).then(output => output)
+        }catch(error) {
+          console.error("trigger smart contract error",error)
+        }
       },
       getBalanceOfStake: async function() {
         const trc20ContractAddress = this.addressBank;
@@ -177,7 +189,7 @@ export default {
         } catch(error) {
           console.error("trigger smart contract error",error)
         }
-      }
+      },
     }
 }
 </script>
@@ -395,6 +407,7 @@ export default {
                     border-radius: 5px;
                     color: #fff;
                     background: #6726eb;
+                    cursor: pointer;
                   }
                 }
               }
